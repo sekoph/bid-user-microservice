@@ -5,6 +5,7 @@ from config.db import SessionLocal
 from crud.user import Create_User, get_users,get_user_by_email,Update_User,Delete_User,get_user_by_id, get_user_by_username
 from schemas.user import User, CreateUser,Token, UpdateUser
 import security.auth
+
 # from routes.custome_oauth import OAuth2EmailRequestForm
 from datetime import datetime,timedelta
 import models.user
@@ -21,7 +22,7 @@ def get_db():
         yield db
     finally:
         db.close()
-        
+
 
 """user routers"""
 
@@ -73,6 +74,7 @@ async def login_for_access_token(db: Session = Depends(get_db), form_data: OAuth
 @usersRouter.get("/api/user/me", response_model=User)
 async def read_users_me(current_user: User = Depends(security.auth.get_current_active_user)):
     try:
+        # print(current_user.id)
         return current_user
     except Exception as e:
         raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=str(e))

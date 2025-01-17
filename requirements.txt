@@ -32,3 +32,4 @@ starlette==0.36.3
 typing_extensions==4.12.2
 uvicorn==0.27.1
 strawberry-graphql
+py_eureka_client==0.11.13
